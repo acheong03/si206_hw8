@@ -83,7 +83,17 @@ def get_highest_rating(db): #Do this through DB as well
     The second bar chart displays the buildings along the y-axis and their ratings along the x-axis 
     in descending order (by rating).
     """
-    pass
+    conn = sqlite3.connect(db)
+    cursor = conn.cursor()
+    cursor.execute("SELECT rating FROM restaurants WHERE name = ?", (rest_name,))
+    data = cursor.fetchone()
+
+    if data is not None:
+        rating = data[0]
+    else:
+        rating = 0
+
+    return rating
 
 #Try calling your functions here
 def main():
